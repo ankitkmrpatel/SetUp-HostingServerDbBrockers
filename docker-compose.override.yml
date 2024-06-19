@@ -1,0 +1,40 @@
+version: '3.4'
+
+services:
+  postgres.db:
+    container_name: postgres.db
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=G17Hub@2321
+      - POSTGRES_DB=CatalogDb
+    restart: always
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  redis.distributedcache:
+    container_name: redis.distributedcache
+    restart: always
+    ports:
+      - "6379:6379"
+
+  rabbitmq.messagebroker:     
+    container_name: rabbitmq.messagebroker
+    hostname: ecommerce-mq
+    restart: always
+    environment:
+      - RABBITMQ_DEFAULT_USER=ankit@sflhub.com
+      - RABBITMQ_DEFAULT_PASS=G17Hub@2321
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+  sqlserver.db:
+    container_name: order.db
+    environment:
+      - MSSQL_SA_PASSWORD=G17Hub@2321
+      - ACCEPT_EULA=Y
+    restart: always
+    ports:
+      - "1433:1433"
